@@ -1,8 +1,13 @@
 package org.loukili.bedbooker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "reservation")
@@ -13,30 +18,41 @@ public class Reservation {
   @Column(name = "id", nullable = false)
   private Long id;
 
-  @Temporal(TemporalType.DATE)
   @Column(name = "start_date", nullable = false)
   private Date startDate;
 
-  @Temporal(TemporalType.DATE)
   @Column(name = "end_date", nullable = false)
   private Date endDate;
 
   @Column(name = "created_at", nullable = false)
+  @CreationTimestamp
   private Timestamp createdAt;
 
   @Column(name = "updated_at", nullable = false)
+  @UpdateTimestamp
   private Timestamp updatedAt;
 
   @Column(name = "is_not_canceled", nullable = false)
-  private Boolean isNotCanceled = false;
+  private Boolean isNotCanceled = true;
 
-  @ManyToOne(cascade = CascadeType.DETACH, optional = false)
+  @ManyToOne(optional = false)
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @ManyToOne(cascade = CascadeType.DETACH, optional = false)
+  @ManyToOne(optional = false)
   @JoinColumn(name = "room_id", nullable = false)
   private Room room;
+
+  @Column(name = "price", nullable = false)
+  private Double price;
+
+  public Double getPrice() {
+    return price;
+  }
+
+  public void setPrice(Double price) {
+    this.price = price;
+  }
 
   public Room getRoom() {
     return room;

@@ -1,20 +1,20 @@
 package org.loukili.bedbooker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
   @SequenceGenerator(name = "user_seq")
   @Column(name = "id", nullable = false)
   private Long id;
-
-  @OneToMany(mappedBy = "user", cascade = CascadeType.DETACH)
-  private List<Hotel> hotels = new ArrayList<>();
 
   @Column(name = "first_name", nullable = false)
   private String firstName;
@@ -28,17 +28,23 @@ public class User {
   @Column(name = "password", nullable = false)
   private String password;
 
-  @ManyToOne(cascade = CascadeType.DETACH, optional = false)
+  @ManyToOne(optional = false)
   @JoinColumn(name = "role_id", nullable = false)
   private Role role;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.DETACH)
+  @OneToMany(mappedBy = "user")
   private List<Reservation> reservations = new ArrayList<>();
 
+  @OneToMany(mappedBy = "user")
+  private List<Hotel> hotels = new ArrayList<>();
+
+
+  @JsonIgnore
   public List<Reservation> getReservations() {
     return reservations;
   }
 
+  @JsonProperty
   public void setReservations(List<Reservation> reservations) {
     this.reservations = reservations;
   }
@@ -83,10 +89,13 @@ public class User {
     this.firstName = firstName;
   }
 
+  @JsonIgnore
   public List<Hotel> getHotels() {
     return hotels;
   }
 
+
+  @JsonProperty
   public void setHotels(List<Hotel> hotels) {
     this.hotels = hotels;
   }

@@ -1,5 +1,8 @@
 package org.loukili.bedbooker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +29,19 @@ public class Room {
   @Column(name = "capacity", nullable = false)
   private Integer capacity;
 
-  @OneToMany(mappedBy = "room", cascade = CascadeType.DETACH)
+  @OneToMany(mappedBy = "room")
   private List<Reservation> reservations = new ArrayList<>();
 
-  @ManyToOne(cascade = CascadeType.ALL, optional = false)
+  @ManyToOne(optional = false)
   @JoinColumn(name = "hotel_id", nullable = false)
   private Hotel hotel;
 
+  @JsonIgnore
   public List<Reservation> getReservations() {
     return reservations;
   }
 
+  @JsonProperty
   public void setReservations(List<Reservation> reservations) {
     this.reservations = reservations;
   }

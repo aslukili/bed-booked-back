@@ -1,5 +1,8 @@
 package org.loukili.bedbooker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +16,26 @@ public class Role {
   @Column(name = "id", nullable = false)
   private Long id;
 
-  @OneToMany(mappedBy = "role", cascade = CascadeType.DETACH, orphanRemoval = true)
+  @OneToMany(mappedBy = "role")
   private List<User> users = new ArrayList<>();
 
+  @Column(name = "name", nullable = false, unique = true)
+  private String name;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  @JsonIgnore
   public List<User> getUsers() {
     return users;
   }
 
+  @JsonProperty
   public void setUsers(List<User> users) {
     this.users = users;
   }
