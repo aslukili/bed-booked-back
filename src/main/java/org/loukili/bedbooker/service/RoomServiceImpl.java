@@ -11,10 +11,12 @@ import java.util.List;
 @Service
 public class RoomServiceImpl implements RoomService{
   private final RoomRepository roomRepository;
+  private final HotelService hotelService;
 
   @Autowired
-  public RoomServiceImpl(RoomRepository roomRepository) {
+  public RoomServiceImpl(RoomRepository roomRepository, HotelService hotelService) {
     this.roomRepository = roomRepository;
+    this.hotelService = hotelService;
   }
 
   @Override
@@ -24,6 +26,7 @@ public class RoomServiceImpl implements RoomService{
 
   @Override
   public Room save(Room room) {
+    room.setHotel(hotelService.getHotelById(room.getHotel().getId()).orElseThrow());
     return roomRepository.save(room);
   }
 }

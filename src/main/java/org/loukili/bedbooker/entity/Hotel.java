@@ -26,7 +26,7 @@ public class Hotel {
   private String address;
 
   @Column(name = "is_approved")
-  private Boolean isApproved;
+  private Boolean isApproved = false;
 
   @Column(name = "rating")
   private Double rating;
