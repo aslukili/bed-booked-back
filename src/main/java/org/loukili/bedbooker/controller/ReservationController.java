@@ -27,5 +27,4 @@ public class ReservationController {
   public ResponseEntity<Reservation> reserve(@RequestBody Reservation reservation){
     return new ResponseEntity<>(reservationService.reserve(reservation), HttpStatus.OK);
   }
-
 }
