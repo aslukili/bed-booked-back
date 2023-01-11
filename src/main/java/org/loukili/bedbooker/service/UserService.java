@@ -13,4 +13,6 @@ public interface UserService {
   User add(User user);
 
   Optional<User> getUserById(Long id);
+
+  Optional<User> getUserByEmail(String email);
 }

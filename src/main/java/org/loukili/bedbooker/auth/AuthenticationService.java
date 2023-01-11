@@ -8,6 +8,7 @@ import org.loukili.bedbooker.config.JwtService;
 import org.loukili.bedbooker.entity.Role;
 import org.loukili.bedbooker.entity.User;
 import org.loukili.bedbooker.repository.UserRepository;
+import org.loukili.bedbooker.service.RoleService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ public class AuthenticationService {
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
+  private final RoleService roleService;
   private final AuthenticationManager authenticationManager;
 
 
@@ -28,7 +30,7 @@ public class AuthenticationService {
       .lastName(request.getLastName())
       .email(request.getEmail())
       .password(passwordEncoder.encode(request.getPassword()))
-       .role(request.getRole())
+      .role(roleService.getRoleById((long) request.getRoleId()).orElseThrow())
       .build();
     userRepository.save(user);
 

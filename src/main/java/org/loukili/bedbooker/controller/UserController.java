@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("${api.endpoint}/users")
@@ -26,7 +28,7 @@ public class UserController {
   }
 
   @PostMapping("")
-  public ResponseEntity<User> registerUser(@RequestBody User user){
+  public ResponseEntity<User> addUser(@RequestBody User user){
     return new ResponseEntity<>(userService.add(user), HttpStatus.OK);
   }
 }
