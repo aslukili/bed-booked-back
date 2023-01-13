@@ -8,9 +8,12 @@ import java.util.Optional;
 
 public interface RoomService {
   List<Room> getAll();
+  List<Room> getPaginated(int pageNo, int pageSize);
 
   Room save(Room room);
 
   Optional<Room> getRoomById(Long id);
+
+
 
 }

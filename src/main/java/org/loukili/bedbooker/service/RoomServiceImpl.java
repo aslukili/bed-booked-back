@@ -4,6 +4,9 @@ package org.loukili.bedbooker.service;
 import org.loukili.bedbooker.entity.Room;
 import org.loukili.bedbooker.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +26,14 @@ public class RoomServiceImpl implements RoomService{
   @Override
   public List<Room> getAll() {
     return roomRepository.findAll();
+  }
+
+  @Override
+  public List<Room> getPaginated(int pageNo, int pageSize) {
+    Pageable paging = PageRequest.of(pageNo, pageSize);
+    Page<Room> pagedResult = roomRepository.findAll(paging);
+
+    return pagedResult.toList();
   }
 
   @Override

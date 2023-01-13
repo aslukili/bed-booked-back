@@ -27,6 +27,11 @@ public class RoomController {
     return new ResponseEntity<>(roomService.getAll(), HttpStatus.OK);
   }
 
+  @GetMapping("/")
+  public ResponseEntity<List<Room>> getPaginated(@RequestParam(name = "page_number") int pageNumber, @RequestParam("page_size") int pageSize){
+    return new ResponseEntity<>(roomService.getPaginated(pageNumber,pageSize), HttpStatus.OK);
+  }
+
   @PostMapping("")
   public ResponseEntity<Room> save(@RequestBody Room room){
     return new ResponseEntity<>(roomService.save(room), HttpStatus.OK);
