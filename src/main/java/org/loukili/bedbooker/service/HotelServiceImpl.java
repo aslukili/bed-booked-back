@@ -5,6 +5,7 @@ import org.loukili.bedbooker.entity.Hotel;
 import org.loukili.bedbooker.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,7 @@ public class HotelServiceImpl implements HotelService{
     return hotelRepository.save(hotel);
   }
 
+  @Transactional
   @Override
   public Optional<Hotel> getHotelById(Long id) {
     return hotelRepository.findHotelById(id);

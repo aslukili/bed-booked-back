@@ -14,6 +14,5 @@ public interface RoomService {
 
   Optional<Room> getRoomById(Long id);
 
-
-
+  List<Room> getRoomsByHotelId(Long id);
 }
