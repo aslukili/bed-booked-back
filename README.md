@@ -10,3 +10,6 @@ ro run this app
 create a database (postgres or mysql both will work)
 modify the database connection at application.properties file
 you're ready to go
+
+
+the front-end part of this project which consumes (some of) the apis is [Here](https://github.com/aslukili/bed-booked-front)
